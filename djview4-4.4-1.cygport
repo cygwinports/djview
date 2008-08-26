@@ -24,6 +24,18 @@ src_compile() {
 	cygautoreconf
 
 	cd ${B}
-	cygconf --with-tiff
-	cygmake NSDEJAVU_LIBS="-avoid-version -no-undefined -lXt -lX11"
+	cygconf --with-tiff --disable-desktopfiles
+
+	cygmake plugindir=/usr/lib/mozilla/plugins \
+            NSDEJAVU_LIBS="-avoid-version -no-undefined -lXt -lX11"
+}
+
+src_install() {
+	cd ${B}
+	cyginstall plugindir=/usr/lib/mozilla/plugins
+
+	cd ${S}/desktopfiles
+	insinto /usr/share/icons/hicolor/32x32/apps
+	newins hi32-djview4.png djvulibre-djview4.png
+	domenu djvulibre-djview4.desktop
 }
