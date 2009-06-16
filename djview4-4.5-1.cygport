@@ -1,0 +1,38 @@
+DESCRIPTION="DjVu document viewer and browser plugin"
+HOMEPAGE="http://djvulibre.djvuzone.org/"
+SRC_URI="mirror://sourceforge/djvu/${P}.tar.gz"
+PATCH_URI="4.5-nsdejavu-weak-symbols.patch"
+
+src_compile() {
+	cd ${S}
+
+	rm -f config/libtool.m4
+	for lt_m4 in libtool.m4 ltoptions.m4 ltsugar.m4 ltversion.m4 lt~obsolete.m4
+	do
+		cat /usr/share/aclocal/${lt_m4} >> config/libtool.m4
+	done
+
+	cygautoreconf
+
+	cd ${B}
+	cygconf --with-tiff --disable-desktopfiles
+
+	cygmake plugindir=/usr/lib/mozilla/plugins \
+            NSDEJAVU_LIBS="-avoid-version -no-undefined -lglib-2.0 -lXt -lX11"
+}
+
+src_install() {
+	cd ${B}
+	cyginstall plugindir=/usr/lib/mozilla/plugins
+
+	for i in 32 64
+	do
+		insinto /usr/share/icons/hicolor/${i}x${i}/apps
+		newins desktopfiles/hi${i}-djview4.png djvulibre-djview4.png
+	done
+
+	insinto /usr/share/icons/hicolor/scalable/apps
+	newins desktopfiles/hi-djview4.svgz djvulibre-djview4.svgz
+
+	domenu ${S}/desktopfiles/djvulibre-djview4.desktop
+}
