@@ -15,10 +15,12 @@ src_compile() {
 	cygautoreconf
 
 	cd ${B}
-	cygconf --with-tiff --disable-desktopfiles
+	# force use of GLib mainloop instead of Xt
+	# http://bugs.gentoo.org/245841
+	cygconf --with-tiff --disable-desktopfiles ac_cv_header_X11_Shell_h=no
 
 	cygmake plugindir=/usr/lib/mozilla/plugins \
-            NSDEJAVU_LIBS="-avoid-version -no-undefined -lglib-2.0 -lXt -lX11"
+            NSDEJAVU_LIBS="-avoid-version -no-undefined -lglib-2.0 -lX11"
 }
 
 src_install() {
