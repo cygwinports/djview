@@ -3,15 +3,11 @@ HOMEPAGE="http://djvulibre.djvuzone.org/"
 SRC_URI="mirror://sourceforge/djvu/${P}.tar.gz"
 PATCH_URI="4.5-nsdejavu-weak-symbols.patch"
 
+DISTCLEANFILES="aclocal.m4 config/l*.m4"
+ACLOCAL_FLAGS="-I config"
+
 src_compile() {
 	cd ${S}
-
-	rm -f config/libtool.m4
-	for lt_m4 in libtool.m4 ltoptions.m4 ltsugar.m4 ltversion.m4 lt~obsolete.m4
-	do
-		cat /usr/share/aclocal/${lt_m4} >> config/libtool.m4
-	done
-
 	cygautoreconf
 
 	cd ${B}
