@@ -1,6 +1,10 @@
-DESCRIPTION="DjVu document viewer and browser plugin"
+CATEGORY="Graphics"
+SUMMARY="DjVu document viewer and browser plugin"
+DESCRIPTION="This package contains the djview4 viewer and browser plugin.
+This new viewer relies on the DjVulibre library and the Qt4 toolkit."
 HOMEPAGE="http://djvulibre.djvuzone.org/"
 SRC_URI="mirror://sourceforge/djvu/${P}.tar.gz"
+SRC_DIR="djview4-${PV}"
 
 PATCH_URI="
 	4.5-nsdejavu-weak-symbols.patch
