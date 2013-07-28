@@ -11,6 +11,7 @@ SRC_DIR="djview4-${VERSION}"
 
 PATCH_URI="
 	4.5-nsdejavu-weak-symbols.patch
+	4.9-debuginfo.patch
 "
 
 DISTCLEANFILES="aclocal.m4 config/l*.m4"
