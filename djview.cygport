@@ -1,11 +1,11 @@
 NAME="djview"
 VERSION=4.9
-RELEASE=1
+RELEASE=2
 CATEGORY="Graphics"
 SUMMARY="DjVu document viewer and browser plugin"
 DESCRIPTION="This package contains the djview4 viewer and browser plugin.
 This new viewer relies on the DjVulibre library and the Qt4 toolkit."
-HOMEPAGE="http://djvulibre.djvuzone.org/"
+HOMEPAGE="http://djvu.sourceforge.net/"
 SRC_URI="mirror://sourceforge/djvu/${NAME}-${VERSION}.tar.gz"
 SRC_DIR="djview4-${VERSION}"
 
