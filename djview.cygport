@@ -1,17 +1,19 @@
+inherit qt4
+
 NAME="djview"
-VERSION=4.9
-RELEASE=2
+VERSION=4.10.6
+RELEASE=1
 CATEGORY="Graphics"
 SUMMARY="DjVu document viewer and browser plugin"
 DESCRIPTION="This package contains the djview4 viewer and browser plugin.
 This new viewer relies on the DjVulibre library and the Qt4 toolkit."
 HOMEPAGE="http://djvu.sourceforge.net/"
 SRC_URI="mirror://sourceforge/djvu/${NAME}-${VERSION}.tar.gz"
-SRC_DIR="djview4-${VERSION}"
-
+SRC_DIR="djview-${VERSION}"
 PATCH_URI="
 	4.5-nsdejavu-weak-symbols.patch
 	4.9-debuginfo.patch
+	4.10-desktopfiles.patch
 "
 
 DISTCLEANFILES="aclocal.m4 config/l*.m4"
@@ -24,7 +26,7 @@ src_compile() {
 	cd ${B}
 	# force use of GLib mainloop instead of Xt
 	# http://bugs.gentoo.org/245841
-	cygconf --with-tiff --disable-desktopfiles ac_cv_header_X11_Shell_h=no
+	cygconf --with-tiff ac_cv_header_X11_Shell_h=no
 
 	cygmake plugindir=/usr/lib/mozilla/plugins \
             NSDEJAVU_LIBS="-avoid-version -no-undefined -lglib-2.0 -lX11"
@@ -33,15 +35,4 @@ src_compile() {
 src_install() {
 	cd ${B}
 	cyginstall plugindir=/usr/lib/mozilla/plugins
-
-	for i in 32 64
-	do
-		insinto /usr/share/icons/hicolor/${i}x${i}/apps
-		newins desktopfiles/hi${i}-djview4.png djvulibre-djview4.png
-	done
-
-	insinto /usr/share/icons/hicolor/scalable/apps
-	newins desktopfiles/hi-djview4.svgz djvulibre-djview4.svgz
-
-	domenu ${S}/desktopfiles/djvulibre-djview4.desktop
 }

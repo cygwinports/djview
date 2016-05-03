@@ -1,0 +1,11 @@
+--- origsrc/djview-4.10.6/desktopfiles/djvulibre-djview4.desktop	2015-12-26 10:57:08.000000000 -0600
++++ src/djview-4.10.6/desktopfiles/djvulibre-djview4.desktop	2016-05-03 17:38:07.453696700 -0500
+@@ -3,7 +3,7 @@ Type=Application
+ Categories=Qt;Graphics;Viewer;
+ MimeType=image/x-djvu;image/x.djvu;image/vnd.djvu;
+ Name=DjView4
+-Exec=djview4 %f
++Exec=djview %f
+ Terminal=false
+ Icon=djvulibre-djview4
+ StartupWMClass=Djview4
