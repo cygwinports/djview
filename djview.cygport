@@ -2,7 +2,7 @@ inherit qt4
 
 NAME="djview"
 VERSION=4.10.6
-RELEASE=1
+RELEASE=2
 CATEGORY="Graphics"
 SUMMARY="DjVu document viewer and browser plugin"
 DESCRIPTION="This package contains the djview4 viewer and browser plugin.
@@ -11,28 +11,10 @@ HOMEPAGE="http://djvu.sourceforge.net/"
 SRC_URI="mirror://sourceforge/djvu/${NAME}-${VERSION}.tar.gz"
 SRC_DIR="djview-${VERSION}"
 PATCH_URI="
-	4.5-nsdejavu-weak-symbols.patch
 	4.9-debuginfo.patch
 	4.10-desktopfiles.patch
 "
 
 DISTCLEANFILES="aclocal.m4 config/l*.m4"
 ACLOCAL_FLAGS="-I config"
-
-src_compile() {
-	cd ${S}
-	cygautoreconf
-
-	cd ${B}
-	# force use of GLib mainloop instead of Xt
-	# http://bugs.gentoo.org/245841
-	cygconf --with-tiff ac_cv_header_X11_Shell_h=no
-
-	cygmake plugindir=/usr/lib/mozilla/plugins \
-            NSDEJAVU_LIBS="-avoid-version -no-undefined -lglib-2.0 -lX11"
-}
-
-src_install() {
-	cd ${B}
-	cyginstall plugindir=/usr/lib/mozilla/plugins
-}
+CYGCONF_ARGS="--with-tiff --disable-nsdejavu"
